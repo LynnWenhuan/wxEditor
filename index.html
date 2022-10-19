@@ -86,6 +86,7 @@
     <section id="btn-box" class="btn-box">
         <button onclick="getAllHtml()">获得整个html的内容</button>
         <button onclick="getContent()">获得内容带标签</button>
+        <button onclick="getContent()">生成html并下载</button>
         <button onclick="getContentTxt()">获得纯文本</button>
         <button onclick="getPlainTxt()">获得带格式的纯文本</button>
         <button onclick="MU.ExtractTextImage()">获取正文中的图片</button>
@@ -187,16 +188,47 @@
         };
 
         function getAllHtml() {
-            alert(UE.getEditor('editor').getAllHtml())
+            var getAllHtmlData = UE.getEditor('editor').getAllHtml();
+            console.log(getAllHtmlData);
+            alert(getAllHtmlData);
         }
 
         function getContent() {
             var arr = [];
+            var getContentData = UE.getEditor('editor').getContent();
             arr.push("使用editor.getContent()方法可以获得编辑器的内容");
             arr.push("内容为：");
-            arr.push(UE.getEditor('editor').getContent());
+            arr.push(getContentData);
+            console.log(getContentData);
             alert(arr.join("\n"));
         };
+        
+        var index = 1;
+        function toDownLoad() {
+            index = index + 1;
+            var content = UE.getEditor('editor').getContent();
+            var docHtml = '<!DOCTYPE html>
+               <html lang="en">
+               <head>
+                   <meta charset="UTF-8">
+                   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                   <title>Document</title>
+               </head>
+               <body>' + content + '</body></html>'
+            downLoadHtml(docHtml, 'showhtml' + index + '.html')
+        };
+        
+        function downLoadHtml(c, f) {
+            var e = document.createElement('a');
+            e.download = f;
+            e.style.display = 'none';
+            var blob = new Blob([c]);    
+            e.href = URL.createObjectURL(blob);
+            document.body.appendChild(e);
+            e.click();
+            document.body.removeChild(e);
+        }
 
         function getPlainTxt() {
             var arr = [];
