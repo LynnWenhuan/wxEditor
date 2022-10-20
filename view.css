@@ -1,0 +1,58 @@
+
+        .preview-wrapper_night {
+            position: relative;
+            left: -3px;
+            margin: 0 0 0 570px;
+            width: 450px;
+            height: 600px;
+            display: inline-block;
+            position: fixed;
+            top: 125px;
+            
+        }
+        .output_night {
+            box-shadow: inset 0 0 12px rgba(63,70,82,.5);
+            overflow-y: scroll;
+        }
+        .preview {
+            height: 101%;
+        }
+        .preview-title {
+            text-align: center;
+            box-shadow: inset 0 0 12px rgba(63,70,82,.5);
+        }
+        #output-wrapper {
+            position: relative;
+            user-select: text;
+            height: 101%;
+        }
+        .loading-mask {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 376px;
+            height: 101%;
+            padding-top: 1px;
+            font-size: 15px;
+            color: gray;
+            /* background-color: #1e1e1e; */
+        }
+
+        .loading__img {
+            position: absolute;
+            left: 50%;
+            top: 330px;
+            width: 50px;
+            height: 50px;
+            transform: translate(-50%, -50%);
+            background: url('../assets/images/favicon.png') no-repeat;
+            background-size: cover;
+        }
+
+        .preview_span {
+            position: absolute;
+            left: 50%;
+            top: 390px;
+            transform: translate(-50%, -50%);
+        }
