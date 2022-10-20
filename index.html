@@ -22,24 +22,26 @@
 
     <!-- xiumi -->
     <script src="./xiumi/xiumi-ue-dialog-v5.js"></script>
+    <link href="./view.css" rel="stylesheet" />
 
     <style>
         .h1 {
             text-align: center;
-            line-height: 80px;
+            /* line-height: 80px; */
             color: #0091f2;
         }
 
         .h3 {
             text-align: center;
-            line-height: 40px;
+            /* line-height: 40px; */
             color: red;
         }
 
         .editor-box {
-            margin: 50px auto;
-            width: 1040px;
+            margin: 0 0 0 50px;
+            width: 450px;
             height: 500px;
+            display: inline-block;
         }
 
         .editor-box .editor {
@@ -49,8 +51,8 @@
 
         .btn-box {
             position: fixed;
-            top: 80px;
-            right: 80px;
+            top: 125px;
+            right: 0px;
             box-sizing: border-box;
             width: 200px;
             height: 850px;
@@ -71,17 +73,40 @@
             cursor: pointer;
             border: none;
         }
+
     </style>
 </head>
 
 <body>
-    <h1 class="h1">原UEditor(百度编辑器) 二次开发 (微信公众号图文编辑器)</h1>
-    <h3 class="h3">温馨提示：代码要放在PHP服务环境（如：PhPStudy、WAMP等）下打开，部份功能才可以正常使用哦！</h3>
+    <h2 class="h1">原UEditor(百度编辑器) 二次开发 (微信公众号图文编辑器)</h2>
+    <h5 class="h3">温馨提示：代码要放在PHP服务环境（如：PhPStudy、WAMP等）下打开，部份功能才可以正常使用哦！</h5>
     <hr>
 
     <section class="editor-box">
         <script id="editor" class="editor" type="text/plain"></script>
     </section>
+
+    
+    <div
+        class="preview-wrapper preview-wrapper_night"
+        id="preview"
+          >
+          <div class="preview-title">预览界面</div>
+    <section
+        id="output-wrapper"
+        class="output_night"
+        >
+            <div class="preview">
+                <section id="output">
+                    <div id="loading-mask" class="loading-mask" v-if="nightMode && isCoping">
+                        <div class="loading__img"></div>
+                        <span class="preview_span">正在生成</span>
+                </section>
+
+            </div>
+        </div>
+    </section>
+    </div>
 
     <section id="btn-box" class="btn-box">
         <button onclick="getAllHtml()">获得整个html的内容</button>
@@ -136,6 +161,7 @@
         //内容改变时自动保存
         var iTems = 60;
         MU.ueditor.addListener("contentChange", function (i) {
+            setEvollp()
             if (!$('#auto-save-time').attr('title')) $('#auto-save-time').attr('title', '正文内容被修改后，在1分钟后自动保存!');
             if (60 == iTems) {
                 clearInterval(win_time);
@@ -166,6 +192,24 @@
                 $('.mask').hide();
             });
         });
+
+        var time = null;
+
+        function setEvollp() {
+            if (time) {
+                clearInterval(time)
+            }
+            time = setInterval(edit2view, 1000)
+        }
+
+        
+
+        function edit2view() {
+            console.log(time)
+            var viewWapper = document.getElementById('loading-mask')
+            var content = UE.getEditor('editor').getContent();
+            viewWapper.innerHTML = content;
+        }
 
         function isFocus(e) {
             alert(UE.getEditor('editor').isFocus());
